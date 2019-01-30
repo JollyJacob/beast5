@@ -1,0 +1,38 @@
+<script type="text/javascript" src="isPrototypeOf.js"></script>
+<script type="text/javascript" src="simpletest.js"></script>
+
+<script>
+    
+    tests({
+    
+        'isPrototypeOf returns false when possibleProto and obj are siblings': function() {
+            var ob1 = Object.create(Object.prototype);
+            var ob2 = Object.create(Object.prototype);
+            eq(isPrototypeOf(ob1, ob2), false);
+        },
+        'isPrototypeOf returns false when possibleProto is descendent of obj': function() {
+            var ob1 = Object.create(Object.prototype);
+            var ob2 = Object.create(ob1);
+            eq(isPrototypeOf(ob2, ob1), false);
+        },
+        'isPrototypeOf returns true when obj is immediate descendent of possibleProto': function() {
+            var ob1 = Object.create(Object.prototype);
+            var ob2 = Object.create(ob1);
+            eq(isPrototypeOf(ob1, ob2), true);
+        },
+        'isPrototypeOf returns true when obj is multi-generation descendent of possibleProto': function() {
+            var ob1 = Object.create(Object.prototype);
+            var ob2 = Object.create(ob1);
+            var ob3 = Object.create(ob2);
+            eq(isPrototypeOf(ob1, ob3), true);
+        },
+        'isPrototypeOf works using constructors': function() {
+            var ob1 = new Object();
+            eq(isPrototypeOf(Object.prototype, ob1), true);
+        },
+
+        
+    
+    });
+
+</script>
